@@ -7,6 +7,9 @@ import ru.boo.simple.text.editor.entity.model.Text;
 import ru.boo.simple.text.editor.service.TextService;
 import ru.boo.simple.text.editor.util.Constants;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Random;
+
 @RestController
 @RequestMapping(path = Constants.API_URL + "/text")
 @RequiredArgsConstructor
@@ -24,6 +27,16 @@ public class TextController {
         return TextDto.builder()
                 .id(text.getId())
                 .userText(text.getUserText())
+                .build();
+    }
+
+    @GetMapping(path = "/random")
+    public TextDto getRandomText() {
+        Random random = new Random();
+        byte [] bytes = {};
+        random.nextBytes(bytes);
+        return TextDto.builder()
+                .userText(new String(bytes, StandardCharsets.UTF_8))
                 .build();
     }
 }
